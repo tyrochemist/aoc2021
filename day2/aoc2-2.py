@@ -4,6 +4,7 @@ with open('input.txt') as instructions:
 x = 0
 y = 0
 product = 0
+aim = 0
 # Iterate through instructions
 for instruction in instructionsList:
     # Split string into command and value
@@ -11,11 +12,14 @@ for instruction in instructionsList:
     units = instruction.split()[1]
     # Check what command is and increment by value
     if command == 'forward':
+        print(f'Moving forward by {units}')
+        y += int(units) * aim
         x += int(units)
     if command == 'down':
-        y += int(units)
+        aim += int(units)
     if command == 'up':
-        y -= int(units)
+        aim -= int(units)
+    print(f'Your current depth is {y}, your horizontal position is {x} and your current aim is {aim}')
 # Multiply horizontal distance by depth
 product = x*y
 print(f'Your horizontal distance is {x} and your depth is {y}')
