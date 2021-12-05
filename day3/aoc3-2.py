@@ -41,7 +41,6 @@ for bit_count, bit in enumerate(diagnostic[0]):
     for row_count, row in enumerate(diagnostic):
         if row[bit_count] == most_common[bit_count]:
             to_remove_co2.append(row_count)
-    # If there is only one entry left, stop... this could have a problem if there are "ties"
     for i in reversed(to_remove_co2):
         del diagnostic_CO2[i]
 oxygen_rating = int(diagnostic_oxygen[0], 2)
