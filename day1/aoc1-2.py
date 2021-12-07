@@ -23,3 +23,4 @@ for count, depth in enumerate(depths):
     oldSum = newSum
 
 print('The comparison increased {} times.'.format(increases))
+# The comparison increased 1748 times.

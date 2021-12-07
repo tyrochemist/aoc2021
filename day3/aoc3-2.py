@@ -2,12 +2,10 @@
 with open('input.txt') as binary_raw:
     binary = binary_raw.readlines()
     diagnostic = [val.rstrip() for val in binary]
-    # Make copies to remove elements from
-    diagnostic_oxygen = diagnostic
-    diagnostic_CO2 = diagnostic
 most_common = ''
-# Enumerate over bit position
-for count, bit in enumerate(diagnostic[0]):
+least_common = ''
+# Enumerate over bit position, finding most_common
+for count in range(len(diagnostic[0])):
     # Set up counters
     ones_count = 0
     zeros_count = 0
@@ -19,31 +17,43 @@ for count, bit in enumerate(diagnostic[0]):
             zeros_count += 1
     # Determine if there were more 0s or 1s
     if ones_count > zeros_count:
-        most_common += '1'
+        most_common = '1'
+        least_common = '0'
+    elif zeros_count > ones_count:
+        most_common = '0'
+        least_common = '1'
     else:
-        most_common += '0'
-print(most_common)
-# Oxygen generator rating: for each bit, go through and remove entry if starts with the least common
-for bit_count, bit in enumerate(diagnostic[0]):
-    to_remove_oxygen = []
-    if len(diagnostic_oxygen) == 1:
-        break
-    for row_count, row in enumerate(diagnostic_oxygen):
-        if row[bit_count] != most_common[bit_count]:
-            to_remove_oxygen.append(row_count)
-    for i in reversed(to_remove_oxygen):
-        del diagnostic_oxygen[i]
-# CO2 scrubber rating: for each bit, go through and remove entry if it starts with the most common
-for bit_count, bit in enumerate(diagnostic[0]):
-    to_remove_co2 = []
-    if len(diagnostic_CO2) == 1:
-        break
-    for row_count, row in enumerate(diagnostic):
-        if row[bit_count] == most_common[bit_count]:
-            to_remove_co2.append(row_count)
-    for i in reversed(to_remove_co2):
-        del diagnostic_CO2[i]
-oxygen_rating = int(diagnostic_oxygen[0], 2)
-CO2_rating = int(diagnostic_CO2[0], 2)
-life_support_rating = oxygen_rating * CO2_rating
-print(life_support_rating)
+        most_common = '1'
+        least_common = '0'
+    print(f'Most common at position {count} is {most_common}')
+    print(f'Least common at position {count} is {least_common}')
+    # Oxygen generator rating:
+    # For each bit, go through and add entry to new list if starts with the most common
+    oxygen_ratings = diagnostic
+    for bit_count in range(len(diagnostic[0])):
+        oxygen_current = []
+        for row_count, row in enumerate(oxygen_ratings):
+            if row[bit_count] == most_common:
+                oxygen_current.append(row)
+        if len(oxygen_current) == 1:
+            break
+        if len(oxygen_current) != 0:
+            oxygen_ratings = oxygen_current
+    # CO2 generator rating:
+    # For each bit, go through and add entry to new list if starts with the least common
+    co2_ratings = diagnostic
+    for bit_count in range(len(diagnostic[0])):
+        co2_current = []
+        for row_count, row in enumerate(co2_ratings):
+            if row[bit_count] == least_common:
+                co2_current.append(row)
+        if len(co2_current) == 1:
+            break
+        if len(co2_current) != 0:
+            co2_ratings = co2_current
+oxygen_rating = int(oxygen_current[0], 2)
+print(f'Oxygen rating is {oxygen_current} in binary or {oxygen_rating} in decimal')
+co2_rating = int(co2_current[0], 2)
+print(f'CO2 rating is {co2_current} in binary or {co2_rating} in decimal')
+life_support_rating = oxygen_rating * co2_rating
+print(f'Life support rating is {life_support_rating}')

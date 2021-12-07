@@ -13,3 +13,4 @@ for depth in depths:
     oldDepth = depthVal
 
 print('The depth increased {} times.'.format(increases))
+# The depth increased 1722 times.

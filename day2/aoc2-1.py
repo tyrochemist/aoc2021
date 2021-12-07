@@ -20,3 +20,5 @@ for instruction in instructionsList:
 product = x*y
 print(f'Your horizontal distance is {x} and your depth is {y}')
 print(f'The product of the two is {product}')
+# Your horizontal distance is 2063 and your depth is 1005
+# The product of the two is 2073315

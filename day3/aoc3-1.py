@@ -37,3 +37,6 @@ power_consumption = gamma_dec * epsilon_dec
 print(f'Gamma is {gamma} or {gamma_dec} in decimal')
 print(f'Epsilon is {epsilon} or {epsilon_dec} in decimal')
 print(f'Power consumption is {power_consumption}')
+# Gamma is 110000111111 or 3135 in decimal
+# Epsilon is 001111000000 or 960 in decimal
+# Power consumption is 3009600
